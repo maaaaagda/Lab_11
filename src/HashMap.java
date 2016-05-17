@@ -16,7 +16,7 @@ public class HashMap {
 
     public String get(int key) {
         String s;
-        int hash = (key % TABLE_SIZE);
+        int hash = (((Integer)key).hashCode()% TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
         if (table[hash] == null)
@@ -27,7 +27,7 @@ public class HashMap {
     }
     public String get2(int key) {
         String s;
-        int hash = (key % TABLE_SIZE);
+        int hash = ((((Integer)key).hashCode()  + 5*(((Integer)key).hashCode()+7)) % TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
         if (table[hash] == null)
@@ -38,14 +38,14 @@ public class HashMap {
     }
     public HashEntry getI(int key) {
         HashEntry h;
-        int hash = (key % TABLE_SIZE);
+        int hash = (((Integer)key).hashCode() % TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
         { hash = (hash + 1) % TABLE_SIZE;}
                 return table[hash];
     }
     public HashEntry getI2(int key) {
         HashEntry h;
-        int hash = (key % TABLE_SIZE);
+        int hash = ((((Integer)key).hashCode()  + 5*(((Integer)key).hashCode()+7)) % TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
 
@@ -53,7 +53,7 @@ public class HashMap {
         return h ;
     }
     public boolean contains(int key) {
-        int hash = (key % TABLE_SIZE);
+        int hash = (((Integer)key).hashCode() % TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
         if (table[hash] == null)
@@ -62,7 +62,7 @@ public class HashMap {
             return true;
     }
     public boolean contains2(int key) {
-        int hash = ((key  + 5*(key+7)) % TABLE_SIZE);
+        int hash = ((((Integer)key).hashCode()  + 5*(((Integer)key).hashCode()+7)) % TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
         if (table[hash] == null)
@@ -78,8 +78,7 @@ public class HashMap {
     {
         return SIZE==0;
     }
-    public void resize()
-    {
+    public void resize()    {
         int newSize = isPrime(TABLE_SIZE*2);
         HashEntry [] tableCopy = new HashEntry[newSize];
         int key;
@@ -90,7 +89,7 @@ public class HashMap {
             if (e != null) {
                 key = e.getKey();
                 value = e.getValue();
-                int hash = (key % newSize);
+                int hash = (((Integer)key).hashCode() % newSize);
                 while (tableCopy[hash] != null && tableCopy[hash].getKey() != key)
                     hash = (hash + 1) % newSize;
                 tableCopy[hash] = new HashEntry(key, value);
@@ -115,7 +114,7 @@ public class HashMap {
             key = e.getKey();
             value = e.getValue();
             if(e !=null) {
-                int hash = ((key + 5 * (key + 7)) % TABLE_SIZE);
+                int hash = ((((Integer)key).hashCode()  + 5*(((Integer)key).hashCode()+7)) % TABLE_SIZE);
                 while (tableCopy[hash] != null && tableCopy[hash].getKey() != key)
                     hash = (hash + 1) % TABLE_SIZE;
                 table[hash] = new HashEntry(key, value);
@@ -128,7 +127,7 @@ public class HashMap {
     }
 
     public void put(int key, String value) {
-        int hash = (key % TABLE_SIZE);
+        int hash = (((Integer)key).hashCode()% TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
         table[hash] = new HashEntry(key, value);
@@ -139,7 +138,7 @@ public class HashMap {
         }
     }
     public void put2(int key, String value) {
-        int hash = ((key  + 5*(key+7)) % TABLE_SIZE);
+        int hash = ((((Integer)key).hashCode()  + 5*(((Integer)key).hashCode()+7)) % TABLE_SIZE);
         while (table[hash] != null && table[hash].getKey() != key)
             hash = (hash + 1) % TABLE_SIZE;
         table[hash] = new HashEntry(key, value);
@@ -180,23 +179,22 @@ public class HashMap {
         hashMap.put(99, "Hashmap");
         System.out.println("Break");
         hashMap.dump();
-      //  System.out.println(hashMap.get(9));
-       System.out.println(hashMap.contains(6));
-      /*   System.out.println(hashMap.size());
+        System.out.println(hashMap.get(91));
+        System.out.println(hashMap.contains(6));
+        System.out.println(hashMap.size());
         System.out.println(hashMap.empty());
-        System.out.println(hashMap.isPrime(70));    */
+        System.out.println("******************************************************");
 
-/*
+
         hashMap.put2(6, "Cos");
         hashMap.put2(9, "Nic");
         hashMap.put2(45, "String");
         hashMap.put2(98, "Hashmap");
         System.out.println(hashMap.get2(9));
         System.out.println(hashMap.contains2(6));
-        System.out.println(hashMap.size());
         System.out.println(hashMap.empty());
         hashMap.dump();
-        */
+
     }
 
 }
